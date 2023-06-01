@@ -49,7 +49,7 @@ import ru.mirea.serebriakovaea.yandexdriver.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements DrivingSession.DrivingRouteListener{
 
-    private static final String TAG = "myLogs";
+    private final String TAG = getClass().getSimpleName();
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private ActivityMainBinding binding;
     private final Point ROUTE_START_LOCATION = new Point(55.796172, 37.715022);
@@ -88,15 +88,14 @@ public class MainActivity extends AppCompatActivity implements DrivingSession.Dr
         drivingRouter = DirectionsFactory.getInstance().createDrivingRouter();
         mapObjects = mapView.getMap().getMapObjects().addCollection();
         submitRequest();
-PlacemarkMapObject marker = mapView.getMap().getMapObjects().addPlacemark(new Point(55.7935, 37.7012));
+        PlacemarkMapObject marker = mapView.getMap().getMapObjects().addPlacemark(new Point(55.7935, 37.7012));
 
         marker.addTapListener(new MapObjectTapListener() {
             @Override
             public boolean onMapObjectTap(@NonNull MapObject mapObject, @NonNull Point
                     point) {
-                Toast.makeText(getApplication(),"РТУ МИРЭА корпус на стромынке",
+                Toast.makeText(getApplication(),"12 ярдов",
                         Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Нажатие");
                 return false;
             }
         });
@@ -126,11 +125,11 @@ PlacemarkMapObject marker = mapView.getMap().getMapObjects().addPlacemark(new Po
 
     @Override
     public void onDrivingRoutesError(@NonNull Error error) {
-        String errorMessage = "unknown_error_message";
+        String errorMessage = getString(R.string.unknown_error_message);
         if (error instanceof RemoteError) {
-            errorMessage = "remote_error_message";
+            errorMessage = getString(R.string.remote_error_message);
         } else if (error instanceof NetworkError) {
-            errorMessage = "network_error_message";
+            errorMessage = getString(R.string.network_error_message);
         }
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
